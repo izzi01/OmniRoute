@@ -247,6 +247,10 @@ export function openaiResponsesToOpenAIRequest(
     return true;
   });
 
+  if (messages.length === 0) {
+    delete result.messages;
+  }
+
   // Translate tool_choice object format: Responses {type,name} → Chat {type,function:{name}}
   if (
     result.tool_choice &&

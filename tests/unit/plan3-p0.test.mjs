@@ -424,6 +424,22 @@ test("translateRequest preserves service_tier when converting openai to openai-r
   assert.ok(Array.isArray(translated.input));
 });
 
+test("translateRequest omits empty messages when responses input yields no chat messages", () => {
+  const translated = translateRequest(
+    FORMATS.OPENAI_RESPONSES,
+    FORMATS.OPENAI,
+    "gpt-5.1-codex",
+    {
+      model: "gpt-5.1-codex",
+      input: [{ type: "reasoning", summary: [] }],
+      stream: false,
+    },
+    false
+  );
+
+  assert.equal("messages" in translated, false);
+});
+
 test("parseSSEToResponsesOutput parses completed response from SSE payload", () => {
   const rawSSE = [
     "event: response.created",
