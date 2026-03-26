@@ -735,6 +735,9 @@ export async function handleChatCore({
   try {
     if (nativeCodexPassthrough) {
       translatedBody = { ...body, _nativeCodexPassthrough: true };
+      if (Array.isArray(translatedBody.messages) && translatedBody.messages.length === 0) {
+        delete translatedBody.messages;
+      }
       log?.debug?.("FORMAT", "native codex passthrough enabled");
     } else if (isClaudeCodeCompatible) {
       let normalizedForCc = { ...body };
