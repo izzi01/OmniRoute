@@ -12,6 +12,9 @@ const nextConfig = {
     },
   },
   output: "standalone",
+  experimental: {
+    proxyClientMaxBodySize: "50mb",
+  },
   serverExternalPackages: [
     "pino",
     "pino-pretty",
